@@ -2,11 +2,14 @@ import {useState} from 'react';
 import {Button, Container, Form} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import Menubar from '../components/navbar/Menubar';
+import {AiFillEyeInvisible, AiFillEye} from 'react-icons/ai';
 
 const Registration = () => {
   // first name validation start
-  const [firstName, setFirstName] = useState('')
-  const [firstNameError, setFirstNameError] = useState('')
+  const [firstName,
+    setFirstName] = useState('')
+  const [firstNameError,
+    setFirstNameError] = useState('')
 
   const handleFirstName = (e) => {
     setFirstName(e.target.value)
@@ -18,48 +21,58 @@ const Registration = () => {
     if (!firstName) {
       setFirstNameError('Please input first name')
     }
-    if(!lastName){
+    if (!lastName) {
       setLastNameError('Please input last name')
     }
-    if(!email){
+    if (!email) {
       setEmailError('Email requered')
     }
-    if(!checkBox){
+    if (!checkBox) {
       setCheckBoxError('Please check the box')
     }
   }
-  // first name validation end
+  // first name validation end last name validation start
+  const [lastName,
+    setLastName] = useState('')
+  const [lastNameError,
+    setLastNameError] = useState('')
 
-  // last name validation start
-  const [lastName, setLastName] = useState('')
-  const [lastNameError, setLastNameError] = useState('')
-
-  const handleLastName = (e) =>{
+  const handleLastName = (e) => {
     setLastName(e.target.value)
     setLastNameError('')
   }
-  // last name validation end
-  
-  // email name validation start
-  const [email, setEmail] = useState('')
-  const [emailError, setEmailError] = useState('')
+  // last name validation end email name validation start
+  const [email,
+    setEmail] = useState('')
+  const [emailError,
+    setEmailError] = useState('')
 
-  const handleEmail = (e) =>{
+  const handleEmail = (e) => {
     setEmail(e.target.value)
     setEmailError('')
   }
-  // email name validation end
-  
-  // email name validation start
-  const [checkBox, setCheckBox] = useState('')
-  const [checkBoxError, setCheckBoxError] = useState('')
+  // email name validation end email name validation start
+  const [checkBox,
+    setCheckBox] = useState('')
+  const [checkBoxError,
+    setCheckBoxError] = useState('')
 
-  const handleCheckBox = (e) =>{
+  const handleCheckBox = (e) => {
     setCheckBox(e.target.value)
     setCheckBoxError('')
   }
   // email name validation end
 
+  const [showPassword,
+    setShowPassword] = useState('password')
+
+  const handleShowPassword = () => {
+    if (showPassword === 'password') {
+      setShowPassword('text')
+    } else {
+      setShowPassword('password')
+    }
+  }
 
   return (
     <div>
@@ -89,7 +102,8 @@ const Registration = () => {
                   <p
                     className='text-danger'
                     style={{
-                    marginLeft: '25%', fontSize:'14px'
+                    marginLeft: '25%',
+                    fontSize: '14px'
                   }}>{firstNameError}</p>
                 </div>
 
@@ -97,14 +111,30 @@ const Registration = () => {
                   <label htmlFor="">Last Name
                     <span>*</span>
                   </label>
-                  <input onChange={handleLastName} type="text" className={`${lastNameError && 'border-danger'} w-50`}/>
-                  <p className='text-danger' style={{marginLeft: '25%', fontSize:'14px'}}>{lastNameError}</p>
+                  <input
+                    onChange={handleLastName}
+                    type="text"
+                    className={`${lastNameError && 'border-danger'} w-50`}/>
+                  <p
+                    className='text-danger'
+                    style={{
+                    marginLeft: '25%',
+                    fontSize: '14px'
+                  }}>{lastNameError}</p>
                 </div>
 
                 <div className="newslatter field">
                   <label>Sign Up for Newsletter</label>
-                  <input onClick={handleCheckBox} type="checkbox" className={`${checkBoxError && 'check_box'}`}></input>
-                  <p className='text-danger d-inline' style={{marginLeft: '3px', fontSize:'14px',}}>{checkBoxError}</p>
+                  <input
+                    onClick={handleCheckBox}
+                    type="checkbox"
+                    className={`${checkBoxError && 'check_box'}`}></input>
+                  <p
+                    className='text-danger d-inline'
+                    style={{
+                    marginLeft: '3px',
+                    fontSize: '14px'
+                  }}>{checkBoxError}</p>
                 </div>
               </fieldset>
 
@@ -131,15 +161,41 @@ const Registration = () => {
                   <label htmlFor="">Email
                     <span>*</span>
                   </label>
-                  <input onChange={handleEmail} type="email" className={`${emailError && 'border-danger'} w-75`}/>
-                  <p className='text-danger' style={{marginLeft: '25%', fontSize:'14px'}}>{emailError}</p>
+                  <input
+                    onChange={handleEmail}
+                    type="email"
+                    className={`${emailError && 'border-danger'} w-75`}/>
+                  <p
+                    className='text-danger'
+                    style={{
+                    marginLeft: '25%',
+                    fontSize: '14px'
+                  }}>{emailError}</p>
                 </div>
 
                 <div className='field'>
-                  <label htmlFor="">Password
-                    <span>*</span>
-                  </label>
-                  <input type="password" className='w-75'/>
+                  <div className='position-relative new_pass'>
+                    <div className=' d-inline'>
+                      <label htmlFor="">Password
+                        <span>*</span>
+                      </label>
+                      <div
+                        onClick={handleShowPassword}
+                        className=' position-absolute top-50 translate-middle'
+                        style={{
+                        right: '5px'
+                      }}>
+                        {showPassword === 'password'
+                          ?
+                          <AiFillEye></AiFillEye>
+                          :
+                          <AiFillEyeInvisible></AiFillEyeInvisible>
+                        }
+                      </div>
+                      <input type={showPassword} className='w-75'/>
+                    </div>
+                  </div>
+
                   <div
                     className="password_strength_meter w-75"
                     style={{
